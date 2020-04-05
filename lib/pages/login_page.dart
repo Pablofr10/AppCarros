@@ -1,4 +1,5 @@
 import 'package:carros/widgets/app_button.dart';
+import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            _textForm("Login", "Digite seu login",
+            AppText("Login", "Digite seu login",
                 controller: _tLogin,
                 validator: _validarLogin,
                 keyboardType: TextInputType.emailAddress,
@@ -47,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            _textForm("Senha", "Digite sua senha",
+            AppText("Senha", "Digite sua senha",
                 controller: _tSenha,
                 password: true,
                 validator: _validarSenha,
