@@ -1,5 +1,4 @@
-import 'package:carros/pages/home_page.dart';
-import 'package:carros/pages/login_page.dart';
+import 'package:carros/pages/carro/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
