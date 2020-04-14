@@ -2,6 +2,7 @@
 import 'package:carros/pages/api_response.dart';
 import 'package:carros/pages/carro/home_page.dart';
 import 'package:carros/pages/login/login_api.dart';
+import 'package:carros/pages/login/login_bloc.dart';
 import 'package:carros/pages/login/usuario.dart';
 import 'package:carros/utils/alert.dart';
 import 'package:carros/utils/nav.dart';
@@ -16,6 +17,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+
+  final _bloc = LoginBloc();
 
   final _tLogin = TextEditingController();
 
@@ -113,14 +116,13 @@ class _LoginPageState extends State<LoginPage> {
       _showProgress = true;
     });
 
-    ApiResponse response = await LoginApi.login(login, senha);
+    ApiResponse response = await _bloc.login(login, senha);
 
     if (response.ok) {
       Usuario user = response.result;
-      print(">>> $user");
+      
       push(context, HomePage(), replace: true);
     } else {
-      print(response.msg);
       alert(context, response.msg);
     }
 

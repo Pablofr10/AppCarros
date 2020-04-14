@@ -1,5 +1,11 @@
+import 'dart:async';
+
 import 'package:carros/pages/carro/carro.dart';
+import 'package:carros/pages/carro/carro_page.dart';
 import 'package:carros/pages/carro/carros_api.dart';
+import 'package:carros/pages/carro/carros_bloc.dart';
+import 'package:carros/utils/nav.dart';
+import 'package:carros/widgets/text_error.dart';
 import 'package:flutter/material.dart';
 
 class CarroListView extends StatefulWidget {
@@ -14,24 +20,30 @@ class CarroListView extends StatefulWidget {
 class _CarroListViewState extends State<CarroListView> with AutomaticKeepAliveClientMixin<CarroListView>{
   @override
   bool get wantKeepAlive => true;
+  List<Carro> carros;
+
+  String get tipo => widget.tipo;
+
+  final _bloc = CarroBloc();
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    _bloc.fetch(tipo);
+  }
+
   
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _body();
-  }
-
-  _body() {
-    Future<List<Carro>> future = CarrosApi.getCarros(widget.tipo);
-
-    return FutureBuilder(
-      future: future,
+    
+    return StreamBuilder(
+      stream: _bloc.stream,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(
-            child: Text("Não foi possível buscar os dados!", 
-            style: TextStyle(color: Colors.red, fontSize: 16),),
-          );
+          return TextErrror();
         }
 
         if (!snapshot.hasData) {
@@ -85,7 +97,7 @@ class _CarroListViewState extends State<CarroListView> with AutomaticKeepAliveCl
                         children: <Widget>[
                           FlatButton(
                             child: const Text('DETALHES'),
-                            onPressed: () {/* ... */},
+                            onPressed: () => _onClickCarro(c),
                           ),
                           FlatButton(
                             child: const Text('SHARE'),
@@ -100,5 +112,16 @@ class _CarroListViewState extends State<CarroListView> with AutomaticKeepAliveCl
             );
           }),
     );
+  }
+
+  _onClickCarro(Carro c) {
+    push(context, CarroPage(c));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _bloc.dispose();
   }
 }

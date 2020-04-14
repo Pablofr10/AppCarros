@@ -8,7 +8,7 @@ alert(BuildContext context, String  msg) {
             title: Text("Sorveteria"),
             content: Text(msg),
             actions: <Widget>[
-              FlatButton(onPressed: () { Navigator.pop(context); print("Ok"); }, 
+              FlatButton(onPressed: () { Navigator.pop(context);}, 
                 child: Text("Ok"),
               )
             ],

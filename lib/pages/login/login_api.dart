@@ -16,8 +16,6 @@ class LoginApi {
       String s = json.encode(params);
 
       var response = await http.post(url, body: s, headers: headers);
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
 
       Map mapResponse = json.decode(response.body);
 
@@ -31,8 +29,7 @@ class LoginApi {
 
       return ApiResponse.error(mapResponse["error"]);
     } catch (error, exception) {
-      print("Error no login $error > $exception");
-
+      
       return ApiResponse.error("Não foi possível fazer o login.");
     }
   }

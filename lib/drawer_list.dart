@@ -38,7 +38,6 @@ class DrawerList extends StatelessWidget {
                 subtitle: Text("mais informações..."),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
-                  print("Favoritos");
                   Navigator.pop(context);
                 }),
             ListTile(
@@ -47,7 +46,6 @@ class DrawerList extends StatelessWidget {
                 subtitle: Text("mais informações..."),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
-                  print("Ajuda");
                   Navigator.pop(context);
                 }),
             ListTile(

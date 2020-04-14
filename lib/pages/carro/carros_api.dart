@@ -22,8 +22,6 @@ class CarrosApi {
       "Authorization": "Bearer ${user.token}"
     };
 
-    print(headers);
-
     var response = await http.get(url, headers: headers);
 
     String json = response.body;
